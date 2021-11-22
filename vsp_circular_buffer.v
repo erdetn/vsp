@@ -24,7 +24,7 @@ pub fn (this CircularBuffer)length() u32 {
 }
 
 pub fn (mut this CircularBuffer)read() f32 {
-	if this.read_index >= this.write_index {
+	if this.read_index == this.write_index {
 		return this.last_read
 	}
 
@@ -69,6 +69,11 @@ pub fn (mut this CircularBuffer)clear() {
 		element = f32(0)
 	}
 }
+
+pub fn (this CircularBuffer)index() (u32, u32) {
+	return this.read_index, this.write_index
+}
+
 pub fn (this CircularBuffer)str() string {
 	mut ret_str := 'CircularBuffer {'
 	ret_str += '\n\tlength:   ${this.buffer.len},'
